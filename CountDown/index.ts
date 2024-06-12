@@ -1,6 +1,7 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
-import { HelloWorld, IHelloWorldProps } from "./HelloWorld";
 import * as React from "react";
+import MainContainerComponent, { IMainContainerComponentProps } from "./MainContainerComponent";
+import { initializeIcons } from '@fluentui/font-icons-mdl2';
 
 export class CountDown implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
@@ -23,6 +24,7 @@ export class CountDown implements ComponentFramework.ReactControl<IInputs, IOutp
         notifyOutputChanged: () => void,
         state: ComponentFramework.Dictionary
     ): void {
+        initializeIcons();
         this.notifyOutputChanged = notifyOutputChanged;
     }
 
@@ -32,9 +34,13 @@ export class CountDown implements ComponentFramework.ReactControl<IInputs, IOutp
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        const props: IHelloWorldProps = { name: 'Hello, World!' };
+        const targetDate = context.parameters.targetDate.raw!
+        const completionDate = context.parameters.completionDate.raw
+        const fieldLabel = context.parameters.fieldName.raw!
+        
+        const props: IMainContainerComponentProps = { targetDate : targetDate, fieldLabel : fieldLabel, completionDate : completionDate };
         return React.createElement(
-            HelloWorld, props
+            MainContainerComponent, props
         );
     }
 

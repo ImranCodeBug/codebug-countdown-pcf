@@ -21,6 +21,9 @@
     <property name="targetDate" display-name-key="TargetDate" description-key="The date field the control will countdown to" of-type="DateAndTime.DateAndTime" usage="bound" 
     required="true" />
 
+    <property name="completionDate" display-name-key="CompletionDate" description-key="Date Field for the completion (If Exists)" of-type="DateAndTime.DateAndTime" usage="bound" 
+    required="false" />
+
     <property name="fieldName" display-name-key="FieldName" description-key="The Label of the Control" of-type="SingleLine.Text" usage="input" default-value="Resolved By"
     required="true" />
     <!--
