@@ -8,4 +8,4 @@ const MainContainerComponent = (props: IMainContainerComponentProps) => {
   )
 }
 
-export default MainContainerComponent
+export default MainContainerComponent 
