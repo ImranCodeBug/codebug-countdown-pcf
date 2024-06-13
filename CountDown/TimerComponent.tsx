@@ -20,28 +20,6 @@ const mainStackStyles = {
       }
 }
 
-
-const constructTimerProps = (targetDate : Date, actualDate : Date | null) =>{
-    if(actualDate === null){ // not yes resolved. ie still running
-      if(targetDate < new Date()){        
-        return statusEnum.Expired;
-      }
-      else{
-        return statusEnum.Progressing
-      }
-    }
-
-    else{
-      if(targetDate < actualDate!){
-        return statusEnum.Failed;
-      }
-      else{
-        return statusEnum.Succeeded;
-      }
-        
-    }
-  }
-
 const getIconStyle = (currentStatus : statusEnum) =>{   
     switch (currentStatus){
         case statusEnum.Expired : 
