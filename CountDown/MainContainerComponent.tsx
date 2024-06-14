@@ -13,7 +13,7 @@ const MainContainerComponent = (props: IMainContainerComponentProps) => {
     {(props.targetDate) 
     ? <TimerComponent heading={props.fieldLabel} isPaused={false} 
       targetDate={props.targetDate!} 
-      actualDate={null} ></TimerComponent>
+      actualDate={props.completionDate} ></TimerComponent>
     : <div>No Target date provided. the control cannot be loaded</div>}
     </>
   )

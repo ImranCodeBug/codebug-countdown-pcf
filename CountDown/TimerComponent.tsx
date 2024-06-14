@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { componentStyle, statusEnum } from './models';
-import { Stack, Icon, Text } from '@fluentui/react';
+import { Stack, Icon, Text, TooltipHost } from '@fluentui/react';
 import Countdown from 'react-countdown';
 
 export interface ITimerComponent {
@@ -23,15 +23,15 @@ const mainStackStyles = {
 const getIconStyle = (currentStatus : statusEnum) =>{   
     switch (currentStatus){
         case statusEnum.Expired : 
-            return {iconName : "Warning12", iconColor : "orange", smallLabel : "Expired"};
+            return {iconName : "ShieldAlert", iconColor : "orange", smallLabel : "Expired"};
         case statusEnum.Failed : 
             return {iconName : "Cancel", iconColor : "Red", smallLabel : "Failed"};
         case statusEnum.Paused : 
-            return {iconName : "CirclePause", iconColor : "black", smallLabel : "Paused"};
+            return {iconName : "Pause", iconColor : "black", smallLabel : "Paused"};
         case statusEnum.Progressing : 
             return {iconName : "Flag", iconColor : "black", smallLabel : "Progressing"};
         default :
-            return {iconName : "SkypeCircleCheck", iconColor : "Green", smallLabel : "Succeeded"};
+            return {iconName : "SkypeCheck", iconColor : "Green", smallLabel : "Succeeded"};
     }
 }
 
@@ -76,10 +76,14 @@ const TimerComponent = (props: ITimerComponent) => {
     
 
     <Stack horizontalAlign="start" horizontal tokens={{ childrenGap: 10 }}>
-      <Icon
-        iconName={props.isPaused ? "CirclePauseSolid" : currentStyle.iconName}
-        styles={{ root: { fontSize: 24, color: currentStyle.iconColor, marginTop: 4 } }} // Adjust top margin
-      />
+    <TooltipHost content={currentStyle.smallLabel} calloutProps={{ gapSpace: 0 }}>
+      <div className='circle' style={{borderColor : currentStyle.iconColor}}>
+        <Icon
+          iconName={props.isPaused ? "CirclePauseSolid" : currentStyle.iconName}
+          styles={{ root: { fontSize: 24, color: currentStyle.iconColor} }} // Adjust top margin
+        />
+      </div>
+      </TooltipHost>
       <Stack>
         <Text variant="mediumPlus" styles={{ root: { color: 'black' } }}>
           {props.heading}
