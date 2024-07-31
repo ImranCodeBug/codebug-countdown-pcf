@@ -37,8 +37,11 @@ export class CountDown implements ComponentFramework.ReactControl<IInputs, IOutp
         const targetDate = context.parameters.targetDate.raw!
         const completionDate = context.parameters.completionDate.raw
         const fieldLabel = context.parameters.fieldName.raw!
+        const pausedField = context.parameters.PausedField.raw;
+        const pausedValue = context.parameters.PausedValue.raw;
         
-        const props: IMainContainerComponentProps = { targetDate : targetDate, fieldLabel : fieldLabel, completionDate : completionDate };
+        const props: IMainContainerComponentProps = { targetDate : targetDate, fieldLabel : fieldLabel, completionDate : completionDate, 
+            pausedFieldValue : pausedField, pausedValue : pausedValue };
         return React.createElement(
             MainContainerComponent, props
         );
