@@ -1,4 +1,6 @@
 # codebug-countdown-pcf
+[![Build Status](https://dev.azure.com/code-bug/code-bug/_apis/build/status%2FGitHub%2Fbuild-solution-and-publish-artifact.yml?branchName=main)](https://dev.azure.com/code-bug/code-bug/_build/latest?definitionId=24&branchName=main)
+
 The purpose of the pcf control is to show a timer which counts down to a target date. if the target has already been passed then it will show count negative. for the timer component, the control uses the `react-countdown` component found in [this](https://www.npmjs.com/package/react-countdown) npm repository.
 
 ## Property Specification
