@@ -16,7 +16,7 @@ parameters:
   - name : 'ProjectName'
     type: string
     displayName: 'Name of the cdsproj under solutions folder'
-    default: 'solutions.cdsproj'
+    default: 'CodebugCountdownTimer.cdsproj'
     
 
 pool:
