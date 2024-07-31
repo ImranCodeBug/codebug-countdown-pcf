@@ -12,6 +12,13 @@
 trigger: 
 - main
 
+parameters:
+  - name : 'ProjectName'
+    type: string
+    displayName: 'Name of the cdsproj under solutions folder'
+    default: 'solutions.cdsproj'
+    
+
 pool:
   vmImage: ubuntu-latest
 
@@ -27,26 +34,17 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- script: |    
-    npm run test
-  displayName: 'Running test'
-
-- task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage result'
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    workingDirectory: 'Solutions/CodebugCustomerAddressMapper/'
+    workingDirectory: 'Solutions/'
   displayName: 'Building Solution'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publishing Artifact'
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/Solutions/CodebugCustomerAddressMapper/bin/Debug/'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/Solutions/bin/Debug/'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
