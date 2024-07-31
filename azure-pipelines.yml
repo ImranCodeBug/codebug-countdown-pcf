@@ -49,15 +49,14 @@ steps:
     publishLocation: 'Container'
 
 - task: GitHubRelease@1
-  displayName: 'Releasing to Github'
   inputs:
-    gitHubConnection: 'Github Release'
+    gitHubConnection: 'github.com_ImranCodeBug'
     repositoryName: '$(Build.Repository.Name)'
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'userSpecifiedTag'
     tag: 'Codebug-$(Build.BuildNumber)'
     title: 'Release Main Branch'
-    assets: '$(System.DefaultWorkingDirectory)/Solutions/CodebugCustomerAddressMapper/bin/Debug/*.zip'
+    assets: '$(System.DefaultWorkingDirectory)/Solutions/bin/Debug/*.zip'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
