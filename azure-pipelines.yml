@@ -1,0 +1,65 @@
+
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+# this runs unit tests for pcf and publishes the test result in to azure
+# to use this feature you need to using jest-junit / Covbertura.
+# follow the link here jest-junit https://blog.johnnyreilly.com/2020/12/30/azure-pipelines-meet-jest
+# i have used cobertura here as this project is much simpler https://dzeyelid.medium.com/check-code-coverage-with-jest-on-azure-devops-548b80d29d3
+
+trigger: 
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run refreshTypes
+    npm run build
+  displayName: 'npm install and build'
+
+- script: |    
+    npm run test
+  displayName: 'Running test'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage result'
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    workingDirectory: 'Solutions/CodebugCustomerAddressMapper/'
+  displayName: 'Building Solution'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publishing Artifact'
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/Solutions/CodebugCustomerAddressMapper/bin/Debug/'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: GitHubRelease@1
+  displayName: 'Releasing to Github'
+  inputs:
+    gitHubConnection: 'Github Release'
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'userSpecifiedTag'
+    tag: 'Codebug-$(Build.BuildNumber)'
+    title: 'Release Main Branch'
+    assets: '$(System.DefaultWorkingDirectory)/Solutions/CodebugCustomerAddressMapper/bin/Debug/*.zip'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
