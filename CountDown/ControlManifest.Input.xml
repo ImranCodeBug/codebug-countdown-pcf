@@ -27,10 +27,10 @@
     <property name="fieldName" display-name-key="FieldName" description-key="The Label of the Control" of-type="SingleLine.Text" usage="input" default-value="Resolved By"
     required="true" />
 
-    <property name="PausedField" display-name-key="PausedField" description-key="OptionSet containing the paused control" of-type="OptionSet" usage="input" 
+    <property name="pausedField" display-name-key="PausedField" description-key="OptionSet containing the paused pause option" of-type="OptionSet" usage="input" 
     required="false" />
 
-    <property name="PausedValue" display-name-key="PausedValue" description-key="The value of the option set for which the control will pause" of-type="Whole.None" usage="input" 
+    <property name="pausedValue" display-name-key="PausedValue" description-key="The optionset value for the paused field for which the control will show pause state" of-type="Whole.None" usage="input" 
     required="false" />
     <!--
       Property node's of-type attribute can be of-type-group attribute.
